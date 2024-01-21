@@ -28,17 +28,23 @@ public class CharacterInfluenceZone extends AbstractZone implements RewardModify
     public CardGroup rarePool;
 
     public AbstractPlayer classInfluence;
+    public Color c;
 
     public CharacterInfluenceZone() {
         super(ID, Icons.EVENT, Icons.SHOP);
         this.width = 2;
         this.maxWidth = 3;
         this.height = 3;
+        this.c = Color.GRAY;
     }
 
     public CharacterInfluenceZone(AbstractPlayer p) {
         this();
         this.classInfluence = p;
+        if (classInfluence != null) {
+            this.c = classInfluence.getCardRenderColor();
+            this.c.a = 1;
+        }
     }
 
     public static AbstractPlayer getCurrentZoneCharacter() {
@@ -72,8 +78,7 @@ public class CharacterInfluenceZone extends AbstractZone implements RewardModify
 
     @Override
     public Color getColor() {
-        if (this.classInfluence == null) return Color.GRAY;
-        return this.classInfluence.getCardRenderColor();
+        return c;
     }
 
     public void initPools() {
